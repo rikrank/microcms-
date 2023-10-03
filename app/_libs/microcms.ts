@@ -87,6 +87,17 @@ export const getArticleDetail = async (contentId: string, queries?: MicroCMSQuer
   return detailData;
 };
 
+// 記事詳細を取得
+export const getArticleDetailDraft = async (contentId: string, queries?: MicroCMSQueries) => {
+  const detailData = await client.getListDetail<Article>({
+    endpoint: 'articles',
+    contentId,
+    queries,
+    customRequestInit: { cache: 'no-store' },
+  });
+  return detailData;
+};
+
 // ランキングを取得
 export const getRanking = async (queries?: MicroCMSQueries) => {
   const detailData = await client.getObject<Ranking>({
