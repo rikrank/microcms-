@@ -83,17 +83,11 @@ export const getArticleDetail = async (contentId: string, queries?: MicroCMSQuer
     endpoint: 'articles',
     contentId,
     queries,
-  });
-  return detailData;
-};
-
-// 記事詳細を取得
-export const getArticleDetailDraft = async (contentId: string, queries?: MicroCMSQueries) => {
-  const detailData = await client.getListDetail<Article>({
-    endpoint: 'articles',
-    contentId,
-    queries,
-    customRequestInit: { cache: 'no-store' },
+    customRequestInit: {
+      next: {
+        revalidate: queries ? 0 : 10,
+      },
+    },
   });
   return detailData;
 };
